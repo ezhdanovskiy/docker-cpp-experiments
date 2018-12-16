@@ -4,9 +4,13 @@
 
 #include <gtest/gtest.h>
 
-TEST(HelloWorld, Test) {
+TEST(CalcTest, TestSum) {
     Calc calc;
     ASSERT_EQ(9 + 4, calc.sum(9, 4));
+}
+
+TEST(CalcTest, TestMinus) {
+    Calc calc;
     ASSERT_EQ(9 - 4, calc.minus(9, 4));
 }
 

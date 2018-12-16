@@ -28,7 +28,7 @@ WORKDIR /app/build
 # Выполним сборку нашего проекта, а также его тестирование
 RUN cmake ../src && \
     cmake --build . && \
-    CTEST_OUTPUT_ON_FAILURE=TRUE cmake --build . --target test
+    ctest --verbose
 
 # Запуск ---------------------------------------
 
@@ -47,4 +47,5 @@ WORKDIR /app
 COPY --from=build /app/build/app .
 
 # Установим точку входа
-ENTRYPOINT ["./app"]
+#ENTRYPOINT ["./app"]
+CMD ["./app"]
