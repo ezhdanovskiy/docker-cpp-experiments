@@ -47,5 +47,4 @@ WORKDIR /app
 COPY --from=build /app/build/app .
 
 # Установим точку входа
-#ENTRYPOINT ["./app"]
-CMD ["./app"]
+ENTRYPOINT ["./app"]
