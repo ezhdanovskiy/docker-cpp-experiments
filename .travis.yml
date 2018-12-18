@@ -1,0 +1,9 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t zhdanovskiy/docker-cpp-experiments -f Dockerfile.dev .
+
+script:
+  - docker run zhdanovskiy/docker-cpp-experiments ctest --verbose
