@@ -1,17 +1,10 @@
 
 FROM gcc:latest as build
 
-# Установим рабочую директорию для сборки GoogleTest
-WORKDIR /gtest_build
-
 ENV CCACHE_DIR /ccache
 
 VOLUME /ccache
 
-# Скачаем все необходимые пакеты и выполним сборку GoogleTest
-# Такая длинная команда обусловлена тем, что
-# Docker на каждый RUN порождает отдельный слой,
-# Влекущий за собой, в данном случае, ненужный оверхед
 RUN set -ex && \
     apt-get update && \
     apt-get install -y \
@@ -20,6 +13,8 @@ RUN set -ex && \
       time \
       vim \
       ccache
+
+WORKDIR /gtest_build
 
 RUN set -ex && \
     ccache -s && \
@@ -45,9 +40,6 @@ RUN set -ex && \
     ccache -s && \
     ctest --verbose
 
+ADD .build/run-inside.sh /app/build/run.sh
 
-# Установим точку входа
-#ENTRYPOINT ["ls", "-al", "/", "&&", "ls", "-al", "/ccache"]
-#ENTRYPOINT ["bash"]
-
-CMD ["ping", "ya.ru"]
+CMD ["/app/build/run.sh"]
